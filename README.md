@@ -1,52 +1,47 @@
-# SimpleSwap
+# SimpleSwap - Automated Market Maker (AMM)
 
-This project implements a basic decentralized exchange (DEX) on the Ethereum blockchain using Solidity. It allows users to:
+This project implements a simplified version of Uniswap V2 using Solidity, featuring core Automated Market Maker (AMM) functionalities including token swaps, liquidity pools, and LP token issuance.
 
-- Deploy two ERC-20 tokens.
-- Add and remove liquidity to/from a liquidity pool.
-- Swap tokens via an Automated Market Maker (AMM) mechanism.
-- Receive LP tokens representing their share of the pool.
+## 📌 Overview
 
-## 🧠 Technologies
+- Decentralized exchange mechanism based on the constant product formula `x * y = k`
+- Add and remove liquidity from token pairs
+- Swap between any two ERC-20 tokens
+- Mint and burn LP tokens representing shares in the liquidity pool
 
-- Solidity ^0.8.20
-- OpenZeppelin Contracts (ERC20 standard)
-- Remix IDE
-- Etherscan (for verification)
-- GitHub (documentation)
+## 🚀 Contracts
 
-## 📁 Contracts
+| Contract    | Address (Sepolia) |
+|-------------|-------------------|
+| SimpleSwap  | `0x7DcfaF18E983446aa59f723333Cfb355e91b354b` |
+| Token A     | `0x3113f2E6732b8Cef92b0a5C50Ecb5Ae51b10F247` |
+| Token B     | `0xFdb204e5b025AfD3c7a8E52007aC792f71509d28` |
 
-The `contracts/` folder includes the following:
+## 🛠 Built With
 
-- `TokenA.sol` — Standard ERC-20 token used for testing.
-- `TokenB.sol` — Second ERC-20 token used for pool creation.
-- `SimpleSwap.sol` — The DEX contract. Handles liquidity, swaps, and LP token minting.
+- [Solidity 0.8.20](https://docs.soliditylang.org/)
+- [OpenZeppelin Contracts](https://docs.openzeppelin.com/contracts)
+- Remix IDE + MetaMask (for deployment and testing)
 
-## 📌 Features
+## ✅ Features
 
-- Mint and approve tokens (ERC-20).
-- Provide liquidity to a pool of two tokens.
-- Receive LP tokens representing liquidity share.
-- Remove liquidity and redeem tokens.
-- Swap tokens using constant product formula.
+- `addLiquidity(tokenA, tokenB, amountADesired, amountBDesired, ...)`
+- `removeLiquidity(tokenA, tokenB, liquidity, ...)`
+- `swapExactTokensForTokens(amountIn, amountOutMin, path, ...)`
+- `getPrice(tokenA, tokenB)`
+- `getAmountOut(amountIn, reserveIn, reserveOut)`
 
-## 🔗 Etherscan
+## 📄 NatSpec Comments
 
-Verified contract (SimpleSwap):  
-[https://sepolia.etherscan.io/address/0x35d93BEC7AB652D7C87390c0438fB16Bb26F7193](https://sepolia.etherscan.io/address/0x35d93BEC7AB652D7C87390c0438fB16Bb26F7193)
+All public and external functions in `SimpleSwap.sol` include [NatSpec documentation](https://docs.soliditylang.org/en/v0.8.20/natspec-format.html) to describe inputs, outputs, and behavior.
 
-## 🚀 Deployment Steps
-
-1. Deploy `TokenA` and `TokenB` from Remix.
-2. Approve the `SimpleSwap` contract to spend tokens.
-3. Deploy `SimpleSwap` with name and symbol (e.g., `"Simple LP Token"`, `"SLP"`).
-4. Use `addLiquidity` and `removeLiquidity` to interact with the pool.
-5. Use `swapExactTokensForTokens` to swap one token for another.
-
-## 👨‍💻 Author
-
-Cristian Olivé  
-Course: Solidity Ethereum Developer Pack  
-Module 3 Practical Assignment
-
+Example:
+```solidity
+/**
+ * @notice Calculates output amount for a given input
+ * @param amountIn Input token amount
+ * @param reserveIn Reserve of input token
+ * @param reserveOut Reserve of output token
+ * @return amountOut Expected output amount
+ */
+function getAmountOut(...) external pure returns (uint256)
